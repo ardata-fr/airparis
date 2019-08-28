@@ -21,12 +21,23 @@ are retrieved. The stations are described in dataset \code{\link{stations}}.}
 
 \item{record_max}{maximum number of records to read}
 }
+\value{
+a data.frame with the following columns:
+
+\code{code_station_ue}: station code where measurements have been carried out.
+
+\code{value}: measurements (unit: microgram per cubic meter)
+
+\code{date}: date of measurement
+}
 \description{
-get measurement of pollutants as a data.frame.
+get measurement of pollutants as a data.frame. Measures
+unit is microgram per cubic meter.
 }
 \note{
 The API of airparif is limiting the number of reacords to maximum
-2000 records.
+2000 records so it will be necessary to create a loop if more rows are
+needed.
 }
 \section{available pollutants}{
 

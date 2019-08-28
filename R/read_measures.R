@@ -2,7 +2,8 @@
 #' @importFrom utils URLencode
 #' @export
 #' @title get pollutants measurement
-#' @description get measurement of pollutants as a data.frame.
+#' @description get measurement of pollutants as a data.frame. Measures
+#' unit is microgram per cubic meter.
 #' @eval arg_choices("measure", airparis:::pollants)
 #' @eval arg_choices("granularity", names(airparis:::granularities))
 #' @param dt_start,dt_end limit dates to use as filters. This parameter
@@ -24,7 +25,16 @@
 #' \code{'no2'}: Nitrogen dioxide
 #' @note
 #' The API of airparif is limiting the number of reacords to maximum
-#' 2000 records.
+#' 2000 records so it will be necessary to create a loop if more rows are
+#' needed.
+#' @return a data.frame with the following columns:
+#'
+#' \code{code_station_ue}: station code where measurements have been carried out.
+#'
+#' \code{value}: measurements (unit: microgram per cubic meter)
+#'
+#' \code{date}: date of measurement
+#'
 #' @examples
 #' read_measures()
 #' read_measures(measure = "o3", station_id = "4049")
@@ -81,7 +91,7 @@ read_measures <- function( measure = "pm10", granularity = "day",
   out <- data.frame(
     code_station_ue = map_chr(properties, "code_station_ue"),
     value = map_dbl(properties, "valeur"),
-    date_debut = as_datetime(map_chr(properties, "date_debut")),
+    date = as_datetime(map_chr(properties, "date_debut")),
     stringsAsFactors = FALSE
   )
 
