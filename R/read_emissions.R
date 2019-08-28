@@ -25,7 +25,7 @@ read_emissions <- function( geo = "epci" ){
   }
 
 
-  fields <- c("pm10_kg", "nox_kg", "so2_kg", "pm25_kg", "co_kg", "nh3_kg",
+  fields <- c("pm10_kg", "pm25_kg", "nox_kg", "so2_kg", "co_kg", "nh3_kg",
               "covnmkg", "as_kg", "cd_kg", "ni_kg", "pb_kg", "bap_kg", "co2_t")
   str_fields <- c("gid")
   int_fields <- c("annee_inv")
