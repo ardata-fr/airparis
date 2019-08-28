@@ -12,6 +12,7 @@ tibble::tribble(
   "ni", "Nickel", "Nickel",
   "pb", "Plomb", "Lead",
   "bap", "Benzo(a)pyrène", "Benzo(a)pyrene",
-  "co2", "dioxyde de carbone", "Carbon dioxide"
+  "co2", "dioxyde de carbone", "Carbon dioxide",
+  "o3", "ozone", "ozone"
 )
 
