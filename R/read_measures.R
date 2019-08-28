@@ -24,7 +24,7 @@
 read_measures <- function( measure = "pm10", granularity = "day",
                            dt_start = Sys.Date() - 7,
                            dt_end = Sys.Date(), station_id = NULL,
-                           record_max = 10000){
+                           record_max = 2000){
 
   if( !measure %in% pollants ){
     stop("measure should be one of the following values: ",
