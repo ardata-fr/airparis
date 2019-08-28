@@ -17,17 +17,32 @@ read_measures(measure = "pm10", granularity = "day",
 is mandatory.}
 
 \item{station_id}{station_id. If NULL, measures from all stations
-are retrieved.}
+are retrieved. The stations are described in dataset \code{\link{stations}}.}
 
 \item{record_max}{maximum number of records to read}
 }
 \description{
-get measurement of pollutants as a data.frame
+get measurement of pollutants as a data.frame.
 }
 \note{
 The API of airparif is limiting the number of reacords to maximum
 2000 records.
 }
+\section{available pollutants}{
+
+The following pollutants are available :
+
+\code{'o3'}: ozone
+
+\code{'pm10'}: Particulate matter with a diameter of 10 micrometers or less
+
+\code{'pm25'}: Particulate matter with a diameter of 2.5 micrometers or less
+
+\code{'nox'}: Nitrogen oxide
+
+\code{'no2'}: Nitrogen dioxide
+}
+
 \examples{
 read_measures()
 read_measures(measure = "o3", station_id = "4049")

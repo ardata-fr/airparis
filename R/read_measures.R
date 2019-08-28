@@ -2,14 +2,26 @@
 #' @importFrom utils URLencode
 #' @export
 #' @title get pollutants measurement
-#' @description get measurement of pollutants as a data.frame
+#' @description get measurement of pollutants as a data.frame.
 #' @eval arg_choices("measure", airparis:::pollants)
 #' @eval arg_choices("granularity", names(airparis:::granularities))
 #' @param dt_start,dt_end limit dates to use as filters. This parameter
 #' is mandatory.
 #' @param station_id station_id. If NULL, measures from all stations
-#' are retrieved.
+#' are retrieved. The stations are described in dataset \code{\link{stations}}.
 #' @param record_max maximum number of records to read
+#' @section available pollutants:
+#' The following pollutants are available :
+#'
+#' \code{'o3'}: ozone
+#'
+#' \code{'pm10'}: Particulate matter with a diameter of 10 micrometers or less
+#'
+#' \code{'pm25'}: Particulate matter with a diameter of 2.5 micrometers or less
+#'
+#' \code{'nox'}: Nitrogen oxide
+#'
+#' \code{'no2'}: Nitrogen dioxide
 #' @note
 #' The API of airparif is limiting the number of reacords to maximum
 #' 2000 records.
