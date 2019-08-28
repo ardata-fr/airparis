@@ -9,9 +9,9 @@ read_measures(measure = "pm10", granularity = "day",
   record_max = 2000)
 }
 \arguments{
-\item{measure}{one of the following values: 'o3', 'pm10', 'pm25', 'nox', 'no2'.}
+\item{measure}{one of the following values: "o3", "pm10", "pm25", "nox", "no2".}
 
-\item{granularity}{one of the following values: 'hour', 'day'.}
+\item{granularity}{one of the following values: "hour", "day".}
 
 \item{dt_start, dt_end}{limit dates to use as filters. This parameter
 is mandatory.}

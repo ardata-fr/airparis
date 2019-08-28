@@ -7,7 +7,7 @@
 read_emissions(geo = "epci")
 }
 \arguments{
-\item{geo}{one of the following values: 'epci', 'departement', 'region'.}
+\item{geo}{one of the following values: "epci", "departement", "region".}
 }
 \description{
 Air pollutant emissions for 2015. Pollutant emissions are the
