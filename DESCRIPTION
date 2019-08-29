@@ -10,8 +10,9 @@ Description: Access to data about air quality in Ile-de-France provided by Airpa
 License: GPL-3
 Depends: R (>= 2.10)
 Imports: jsonlite, purrr, utils, lubridate, curl
+URL: https://ardata-fr.github.io/airparis
 Encoding: UTF-8
+BugReports: https://github.com/ardata-fr/airparis/issues
 LazyData: true
 RoxygenNote: 6.1.1
-BugReports: https://github.com/ardata-fr/airparis/issues
 Roxygen: list(markdown = TRUE)
