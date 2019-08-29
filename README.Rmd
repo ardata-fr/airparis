@@ -20,6 +20,56 @@ knitr::opts_chunk$set(
 Package `airparis` is providing a small set of functions to access data about air quality in Ile-de-France 
 provided by [Airparif](https://www.airparif.asso.fr/). 
 
+```{r echo=FALSE, fig.height=2, message=FALSE}
+library(airparis)
+library(tidyverse)
+library(ggiraph)
+library(lubridate)
+library(glue)
+
+change_dayinweek <- function(x){
+  x[x %in% 1] <- 8
+  x
+}
+
+data <- read_atmo() %>% 
+  mutate(isoweek = isoweek(date_time),
+         isoyear = isoyear(date_time),
+         weekday = change_dayinweek(wday(date_time)),
+         daylabel = weekdays(date_time), 
+         classification = cut( score, breaks = c(0, 4.5, 7.5, Inf), labels = c("Bon", "Mediocre", "Mauvais")),
+         tooltip = glue("{daylabel} {date_time}\nindice {score}\nclassification: {classification}")
+         ) 
+
+weektoadd <- data %>% filter(isoyear == min(isoyear)) %>% 
+  arrange(desc(isoweek)) %>% 
+  slice(1) %>% pull(isoweek)
+
+data <- mutate(
+  data, 
+  weekid = case_when(
+    isoyear == min(isoyear) ~ isoweek,
+    TRUE ~ isoweek + weektoadd)
+  )
+
+P <- ggplot(data, aes(weekid, weekday, fill = classification, tooltip = tooltip)) + 
+  geom_tile_interactive(colour = "white") + 
+  coord_equal() + 
+  scale_y_reverse() + 
+  scale_fill_manual_interactive(name = "",
+    values = c("Bon" = "#84bf75", "Mediocre" = "#f29400", "Mauvais" = "#d82517"),
+    tooltip = c("Bon" = "1 <= indice <= 4", "Mediocre" = "5 <= indice <= 5", "Mauvais" = "8 <= indice <= 10")) + 
+  theme_void() + 
+  theme(legend.position = "bottom", 
+        legend.key.size = unit(0.25, "cm") ) +
+  labs(title = "ATMO index")
+
+girafe(ggobj = P, width_svg = 6, height_svg = 2) %>% 
+  girafe_options(opts_zoom(max = 3), opts_toolbar(position = "top"))
+```
+
+
+
 Users can retrieve hourly and daily data measured in Ile-de-France with function 
 `read_measures()`. The following pollutants are available:
 

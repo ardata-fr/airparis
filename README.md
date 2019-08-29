@@ -11,6 +11,8 @@ Package `airparis` is providing a small set of functions to access data
 about air quality in Ile-de-France provided by
 [Airparif](https://www.airparif.asso.fr/).
 
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+
 Users can retrieve hourly and daily data measured in Ile-de-France with
 function `read_measures()`. The following pollutants are available:
 
