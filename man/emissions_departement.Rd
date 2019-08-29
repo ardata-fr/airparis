@@ -13,8 +13,8 @@ Departement pollutants emissions
 as a data.frame. The dataset contains the following columns:
 \itemize{
 \item \code{gid}: geographical id
-\item \code{lib_dep}: departement label
-\item \code{code_dep}: departement code
+\item \code{lib_dep}: French departement label
+\item \code{code_dep}: French departement code
 \item \code{year}: year of emissions
 \item \code{pm10}: Particulate matter with a diameter of 10 micrometers or less (in kg)
 \item \code{pm25}: Particulate matter with a diameter of 2.5 micrometers or less (in kg)

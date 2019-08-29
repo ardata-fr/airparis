@@ -73,6 +73,6 @@ read_measures(pollutant = "pm10", station_id = "4181",
 \link{stations}, \code{\link[=is_magellan_available]{is_magellan_available()}}
 
 Other functions about Paris air quality: \code{\link{read_alert}},
-  \code{\link{read_atmo}}, \code{\link{read_emissions}}
+  \code{\link{read_atmo}}
 }
 \concept{functions about Paris air quality}

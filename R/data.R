@@ -74,8 +74,8 @@
 #' as a data.frame. The dataset contains the following columns:
 #'
 #' * `gid`: geographical id
-#' * `lib_dep`: departement label
-#' * `code_dep`: departement code
+#' * `lib_dep`: French departement label
+#' * `code_dep`: French departement code
 #' * `year`: year of emissions
 #' * `pm10`: Particulate matter with a diameter of 10 micrometers or less (in kg)
 #' * `pm25`: Particulate matter with a diameter of 2.5 micrometers or less (in kg)
@@ -97,8 +97,8 @@
 #' as a data.frame. The dataset contains the following columns:
 #'
 #' * `gid`: geographical id
-#' * `lib_reg`: region label
-#' * `code_reg`: region code
+#' * `lib_reg`: French region label
+#' * `code_reg`: French region code
 #' * `year`: year of emissions
 #' * `pm10`: Particulate matter with a diameter of 10 micrometers or less (in kg)
 #' * `pm25`: Particulate matter with a diameter of 2.5 micrometers or less (in kg)
@@ -114,3 +114,5 @@
 #' @name emissions_region
 #' @family datasets from airparif
 "emissions_region"
+
+

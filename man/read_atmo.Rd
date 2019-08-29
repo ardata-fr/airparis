@@ -43,6 +43,6 @@ if( is_magellan_available() ){
 }
 \seealso{
 Other functions about Paris air quality: \code{\link{read_alert}},
-  \code{\link{read_emissions}}, \code{\link{read_measures}}
+  \code{\link{read_measures}}
 }
 \concept{functions about Paris air quality}
