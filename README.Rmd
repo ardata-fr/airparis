@@ -58,7 +58,7 @@ P <- ggplot(data, aes(weekid, weekday, fill = classification, tooltip = tooltip)
   scale_y_reverse() + 
   scale_fill_manual_interactive(name = "",
     values = c("Bon" = "#84bf75", "Mediocre" = "#f29400", "Mauvais" = "#d82517"),
-    tooltip = c("Bon" = "1 <= indice <= 4", "Mediocre" = "5 <= indice <= 5", "Mauvais" = "8 <= indice <= 10")) + 
+    tooltip = c("Bon" = "1 <= indice <= 4", "Mediocre" = "5 <= indice <= 7", "Mauvais" = "8 <= indice <= 10")) + 
   theme_void() + 
   theme(legend.position = "bottom", 
         legend.key.size = unit(0.25, "cm") ) +

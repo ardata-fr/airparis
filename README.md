@@ -22,7 +22,7 @@ function `read_measures()`. The following pollutants are available:
     less
   - `nox`: Nitrogen oxide
   - `no2`: Nitrogen dioxide
-
+ 
 <!-- end list -->
 
 ``` r
