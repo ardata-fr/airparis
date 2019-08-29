@@ -17,31 +17,61 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-Package `airparis` 
+Package `airparis` is providing a small set of functions to access data about air quality in Ile-de-France 
+provided by [Airparif](https://www.airparif.asso.fr/). 
 
-## Installation
+Users can retrieve hourly and daily data measured in Ile-de-France with function 
+`read_measures()`. The following pollutants are available:
 
-You can install the released version of airparis from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("airparis")
-```
-
-## Example
+* `o3`: ozone
+* `pm10`: Particulate matter with a diameter of 10 micrometers or less
+* `pm25`: Particulate matter with a diameter of 2.5 micrometers or less
+* `nox`: Nitrogen oxide
+* `no2`: Nitrogen dioxide
 
 ```{r}
 library(airparis)
+read_measures(pollutant = "pm10", station_id = "4181",
+  dt_start = as.Date("2019-06-01"), dt_end = as.Date("2019-06-04"), 
+  granularity = "day")
 ```
 
-### ATMO index
+The stations where measures are made are available in dataset `stations`:
 
 ```{r}
-data_atmo <- read_atmo()
-score <- as.list(data_atmo$score)
-names(score) <- format(data_atmo$date, "%Y-%m-%d")
-names(score) <- as.character(as.integer(data_atmo$date))
-# jsonlite::toJSON(score, auto_unbox = TRUE )
+utils::head( stations )
 ```
 
+Function `read_atmo()` read ATMO index and return them in a data.frame. 
+The data is only containing the last year of daily historic. The air quality 
+index ranges from 1 (very good) to 10 (very bad). It characterizes in a simple 
+and comprehensive way the air quality of an urban agglomeration.
+It is not possible to reproduce exact calculations as so2 is not available 
+through the web service or with read_measures().
+
+```{r}
+utils::tail( read_atmo() )
+```
+
+Function `read_alert()` read air quality alerts issued by airparif. 
+
+```{r}
+utils::tail( read_alert() )
+```
+
+Pollutants emissions are available for 2015 as data.frame (see `emissions_epci`, `emissions_region`, `emissions_departement`):
+
+```{r}
+utils::head( emissions_epci )
+```
+
+
+## Installation
+
+You can install the development version of airparis from [github](https://github.com/ardata-fr/airparis) with:
+
+``` r
+remotes::install_github("ardata-fr/airparis")
+```
 
 
