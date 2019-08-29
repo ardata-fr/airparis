@@ -1,32 +1,41 @@
 #' @export
-##' @title Pollution outbreak alerts
-##' @importFrom lubridate as_datetime
+#' @title air quality alerts
+#' @description read air quality alerts issued by airparif.
+#' @return a data.frame with the following columns:
+#'
+#' * `date_time`: *(POSIXct with time zone set to `Europe/Paris`)*, date-time of measurement
+#' * `pollutant`: *(character)*, pollutant whose level has triggered the alert
+#' * `state`: *(character)*, state of the alert, a label meaning information and alert - coded as
+#' `c("Niveau d'information et de recommandation or alert", "Niveau d'alerte")`.
+#' @importFrom lubridate as_datetime
+#' @examples
+#' if( is_magellan_available() ){
+#'   read_alert()
+#' }
+#' @family functions about Paris air quality
 read_alert <- function( ){
+
+  str_fields <- c("date_ech", "etat", "code_pol")
 
   url <- paste0("https://magellan.airparif.asso.fr/geoserver/DIDON/ows?service=WFS&version=1.0.0",
                 "&request=GetFeature&typeName=DIDON:alrt_idf",
-                "&propertyname=date_echeance,code_zone,lib_geo,polluant,param_seuil,param_critere_population,param_critere_superficie",
-                "&CQL_FILTER=param_seuil=1",
+                "&propertyname=", paste0(str_fields, collapse = ","),
                 "&maxFeatures=2000",
                 "&outputFormat=application%2Fjson")
   data <- read_json(url)
-
   properties <- map(data$features, "properties")
 
-  polluant <- map_chr(properties, "polluant", .default = NA_character_)
-
-  seuil <- map_int(properties, "param_seuil") + 1
-  seuil <- c( "none","info", "alert")[seuil]
-
-  crit_pop <- map_int(properties, "param_critere_population")
-  crit_surf <- map_int(properties, "param_critere_superficie")
+  data <- lapply(str_fields,
+                     function(field, properties){
+                       map_chr(properties, field, .default = NA_character_)
+                     },
+                     properties = properties)
+  names(data) <- str_fields
 
   out <- data.frame(
-    date_echea = as_datetime(map_chr(properties, "date_echeance")),
-    pollutant = as.character(c("5" = "pm10", "7" = "o3", "8" = "no2")[polluant]),
-    seuil = seuil,
-    crit_pop = crit_pop > 0,
-    param_cri0 = crit_surf > 0,
+    date_time = parse_airparif_date(data$date_ech),
+    pollutant = as.character(c("5" = "pm10", "7" = "o3", "8" = "no2")[data$code_pol]),
+    state = data$etat,
     stringsAsFactors = FALSE
   )
 

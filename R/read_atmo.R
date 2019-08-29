@@ -20,8 +20,17 @@
 #'
 #' The highest sub-index of the 4 presented above will be the index of the day.
 #'
+#' It is not possible to reproduce exact calculations as `so2` is not available
+#' through the web service or with [read_measures()].
+#' @return a data.frame with the following columns:
+#'
+#' * `date_time`: *(POSIXct with time zone set to `Europe/Paris`)*, date-time of index
+#' * `score`: *(integer)*, air quality index
 #' @examples
-#' read_atmo()
+#' if( is_magellan_available() ){
+#'   read_atmo()
+#' }
+#' @family functions about Paris air quality
 read_atmo <- function( ){
 
   atmo_url <- paste0("https://magellan.airparif.asso.fr/geoserver/DIDON/ows?service=WFS&version=1.0.0&request=GetFeature",
@@ -30,9 +39,8 @@ read_atmo <- function( ){
   data <- read_json(atmo_url)
 
   properties <- map(data$features, "properties")
-
   data.frame(
-    date = as_date(map_chr(properties, "date_ech")) + 1,
+    date_time = parse_airparif_date(map_chr(properties, "date_ech")),
     score = map_int(properties, "valeur")
   )
 }

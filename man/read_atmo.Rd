@@ -6,6 +6,13 @@
 \usage{
 read_atmo()
 }
+\value{
+a data.frame with the following columns:
+\itemize{
+\item \code{date_time}: \emph{(POSIXct with time zone set to \code{Europe/Paris})}, date-time of index
+\item \code{score}: \emph{(integer)}, air quality index
+}
+}
 \description{
 get ATMO index data as a data.frame.
 The data is only containing the last year of daily historic.
@@ -25,7 +32,17 @@ representative of an air pollutant:
 }
 
 The highest sub-index of the 4 presented above will be the index of the day.
+
+It is not possible to reproduce exact calculations as \code{so2} is not available
+through the web service or with \code{\link[=read_measures]{read_measures()}}.
 }
 \examples{
-read_atmo()
+if( is_magellan_available() ){
+  read_atmo()
 }
+}
+\seealso{
+Other functions about Paris air quality: \code{\link{read_alert}},
+  \code{\link{read_emissions}}, \code{\link{read_measures}}
+}
+\concept{functions about Paris air quality}

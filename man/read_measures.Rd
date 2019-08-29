@@ -2,18 +2,18 @@
 % Please edit documentation in R/read_measures.R
 \name{read_measures}
 \alias{read_measures}
-\title{get pollutants measurement}
+\title{get pollutants measurements}
 \usage{
-read_measures(measure = "pm10", granularity = "day",
-  dt_start = Sys.Date() - 7, dt_end = Sys.Date(), station_id = NULL,
-  record_max = 2000)
+read_measures(pollutant = "pm10", granularity = "day",
+  dt_start = format(Sys.Date() - 7), dt_end = format(Sys.Date() - 1),
+  station_id = NULL, record_max = 2000)
 }
 \arguments{
-\item{measure}{one of the following values: 'o3', 'pm10', 'pm25', 'nox', 'no2'.}
+\item{pollutant}{one of the following values: 'o3', 'pm10', 'pm25', 'nox', 'no2', 'so2'.}
 
 \item{granularity}{one of the following values: 'hour', 'day'.}
 
-\item{dt_start, dt_end}{limit dates to use as filters. This parameter
+\item{dt_start, dt_end}{limit dates (character formated as `%Y-%m-%d``) to use as filters. This parameter
 is mandatory.}
 
 \item{station_id}{station_id. If NULL, measures from all stations
@@ -23,43 +23,56 @@ are retrieved. The stations are described in dataset \code{\link{stations}}.}
 }
 \value{
 a data.frame with the following columns:
-
-\code{code_station_ue}: station code where measurements have been carried out.
-
-\code{value}: measurements (unit: microgram per cubic meter)
-
-\code{date}: date of measurement
+\itemize{
+\item \code{code_station_ue}: \emph{(character)}, station code where measurements have been carried out.
+\item \code{value}: \emph{(double)}, measurements (unit: microgram per cubic meter)
+\item \code{date_time}: \emph{(POSIXct with time zone set to \code{Europe/Paris})}, date-time of measurement
+\item \code{pollutant}: \emph{(character)}, pollutant
+}
 }
 \description{
-get measurement of pollutants as a data.frame. Measures
-unit is microgram per cubic meter.
+get measurements of pollutants as a data.frame. All measures
+are using unit microgram per cubic meter.
 }
 \note{
-The API of airparif is limiting the number of reacords to maximum
-2000 records so it will be necessary to create a loop if more rows are
+The API of airparif is limiting the number of records to 2000;
+it is necessary to loop over dates or stations when more rows are
 needed.
 }
 \section{available pollutants}{
 
+
 The following pollutants are available :
-
-\code{'o3'}: ozone
-
-\code{'pm10'}: Particulate matter with a diameter of 10 micrometers or less
-
-\code{'pm25'}: Particulate matter with a diameter of 2.5 micrometers or less
-
-\code{'nox'}: Nitrogen oxide
-
-\code{'no2'}: Nitrogen dioxide
+\itemize{
+\item \code{o3}: ozone
+\item \code{pm10}: Particulate matter with a diameter of 10 micrometers or less
+\item \code{pm25}: Particulate matter with a diameter of 2.5 micrometers or less
+\item \code{nox}: Nitrogen oxide
+\item \code{no2}: Nitrogen dioxide
+}
 }
 
 \examples{
+if( is_magellan_available() ){
+
 read_measures()
-read_measures(measure = "o3", station_id = "4049")
-read_measures(measure = "nox",
+read_measures(pollutant = "pm10", station_id = "4002")
+read_measures(pollutant = "pm25", station_id = "4002")
+read_measures(pollutant = "o3", station_id = "4049")
+read_measures(pollutant = "nox", station_id = "4002")
+read_measures(pollutant = "no2", station_id = "4002")
+read_measures(pollutant = "nox",
   dt_start = as.Date("2018-09-01"),
   station_id = "4323")
-read_measures(measure = "pm10", station_id = "4181",
+read_measures(pollutant = "pm10", station_id = "4181",
   dt_start = as.Date("2019-06-01"), granularity = "hour")
+
 }
+}
+\seealso{
+\link{stations}, \code{\link[=is_magellan_available]{is_magellan_available()}}
+
+Other functions about Paris air quality: \code{\link{read_alert}},
+  \code{\link{read_atmo}}, \code{\link{read_emissions}}
+}
+\concept{functions about Paris air quality}

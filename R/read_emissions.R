@@ -10,11 +10,13 @@ geo_emi <- c("epci", "departement", "region")
 #' activities or by natural sources.
 #' @eval arg_choices("geo", airparis:::geo_emi)
 #' @examples
-#' read_emissions(geo = "epci")
-#'
-#' read_emissions(geo = "departement")
-#'
-#' read_emissions(geo = "region")
+#' if( is_magellan_available() ){
+#'   read_emissions(geo = "epci")
+#'   read_emissions(geo = "departement")
+#'   read_emissions(geo = "region")
+#' }
+#' @family functions about Paris air quality
+#' @seealso [is_magellan_available()]
 read_emissions <- function( geo = "epci" ){
 
   if( !geo %in% geo_emi){
@@ -26,7 +28,7 @@ read_emissions <- function( geo = "epci" ){
 
 
   fields <- c("pm10_kg", "pm25_kg", "nox_kg", "so2_kg", "co_kg", "nh3_kg",
-              "covnmkg", "as_kg", "cd_kg", "ni_kg", "pb_kg", "bap_kg", "co2_t")
+              "covnmkg", "co2_t")
   str_fields <- c("gid")
   int_fields <- c("annee_inv")
 
@@ -77,7 +79,19 @@ read_emissions <- function( geo = "epci" ){
   out <- str_data
   out[names(int_data)] <- int_data
   out[names(dbl_data)] <- dbl_data
-
+  names(out) <- gsub("[_]{0,1}(kg|t)$", "", names(out))
+  names(out) <- gsub("annee_inv", "year", names(out))
   out <- as.data.frame(out, stringsAsFactors = FALSE)
   out
 }
+
+
+# emissions_epci <- read_emissions(geo = "epci")
+# emissions_departement <- read_emissions(geo = "departement")
+# emissions_region <- read_emissions(geo = "region")
+#
+# usethis::use_data(emissions_epci, overwrite = TRUE)
+# usethis::use_data(emissions_departement, overwrite = TRUE)
+# usethis::use_data(emissions_region, overwrite = TRUE)
+
+

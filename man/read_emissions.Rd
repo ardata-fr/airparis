@@ -15,9 +15,16 @@ quantities of pollutants directly released into the atmosphere by human
 activities or by natural sources.
 }
 \examples{
-read_emissions(geo = "epci")
-
-read_emissions(geo = "departement")
-
-read_emissions(geo = "region")
+if( is_magellan_available() ){
+  read_emissions(geo = "epci")
+  read_emissions(geo = "departement")
+  read_emissions(geo = "region")
 }
+}
+\seealso{
+\code{\link[=is_magellan_available]{is_magellan_available()}}
+
+Other functions about Paris air quality: \code{\link{read_alert}},
+  \code{\link{read_atmo}}, \code{\link{read_measures}}
+}
+\concept{functions about Paris air quality}

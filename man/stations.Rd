@@ -25,10 +25,10 @@ data.frame. The dataset contains the following columns:
 \item \code{no2}: wether no2 is measured at this station
 }
 }
-\references{
-\url{https://data-airparif-asso.opendata.arcgis.com}
+\seealso{
+Other datasets from airparif: \code{\link{emissions_departement}},
+  \code{\link{emissions_epci}},
+  \code{\link{emissions_region}}
 }
-\author{
-Airparif
-}
+\concept{datasets from airparif}
 \keyword{data}

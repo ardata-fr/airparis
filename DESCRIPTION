@@ -9,7 +9,7 @@ Authors@R: c(
 Description: Access to data about air quality in Ile-de-France provided by Airparif. 
 License: GPL-3
 Depends: R (>= 2.10)
-Imports: jsonlite, purrr, utils, lubridate
+Imports: jsonlite, purrr, utils, lubridate, curl
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

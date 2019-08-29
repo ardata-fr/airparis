@@ -2,10 +2,29 @@
 % Please edit documentation in R/read_alert.R
 \name{read_alert}
 \alias{read_alert}
-\title{Pollution outbreak alerts}
+\title{air quality alerts}
 \usage{
 read_alert()
 }
-\description{
-Pollution outbreak alerts
+\value{
+a data.frame with the following columns:
+\itemize{
+\item \code{date_time}: \emph{(POSIXct with time zone set to \code{Europe/Paris})}, date-time of measurement
+\item \code{pollutant}: \emph{(character)}, pollutant whose level has triggered the alert
+\item \code{state}: \emph{(character)}, state of the alert, a label meaning information and alert - coded as
+\code{c("Niveau d'information et de recommandation or alert", "Niveau d'alerte")}.
 }
+}
+\description{
+read air quality alerts issued by airparif.
+}
+\examples{
+if( is_magellan_available() ){
+  read_alert()
+}
+}
+\seealso{
+Other functions about Paris air quality: \code{\link{read_atmo}},
+  \code{\link{read_emissions}}, \code{\link{read_measures}}
+}
+\concept{functions about Paris air quality}
